@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>salesforce</fullName>
+    <columns>NAME</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Assesment__c</field>
+        <operation>equals</operation>
+        <value>salesforce</value>
+    </filters>
+    <label>salesforce</label>
+</ListView>

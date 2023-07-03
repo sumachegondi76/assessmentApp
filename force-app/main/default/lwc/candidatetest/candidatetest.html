@@ -1,0 +1,94 @@
+<template>
+    <lightning-card title='New Candidate Form' style="font-weight:700;">   
+
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input type="text" label="Name" class="inp" required name="name" value={canName} placeholder="type here..."></lightning-input>
+            </div>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input label="Phone" class="inp" required name="phone" value={canPhone} placeholder="type here..."></lightning-input>
+            </div>
+            <div class="slds-p-around_medium lgc-bg">              
+                <lightning-combobox name="types" label="Assessment" required value={value} options={assessOptions} onchange={handleAssessChange}> </lightning-combobox> 
+            </div>
+            
+            </div>
+        
+            <div class="slds-col">
+                <div class="slds-p-around_medium lgc-bg">
+                    <lightning-input type="email" label="Email" class="inp" required name="email" value={canEmail} onchange={handleEmailChange} placeholder="type here..."></lightning-input>
+                </div>                
+            <div class="slds-p-around_medium lgc-bg">              
+                <lightning-combobox name="types" label="Qualification" required value={value} options={qualificationOptions} onchange={handleQualiChange}> </lightning-combobox> 
+            </div>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input type="date" label="Date" required value={date} onchange={handleDate} readonly="true"></lightning-input>
+            </div>
+            <span style="float:right;">
+                <lightning-button variant="brand" label="Submit" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                </span>
+        </div>
+        
+        </div>  
+           
+        
+        
+        <!-- <lightning-layout>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input type="text" label="Name" class="inp" required name="name" value={canName} placeholder="type here..."></lightning-input>
+            </div>
+            <div class="slds-p-around_medium lgc-bg">              
+                <lightning-combobox name="types" label="Assessment" required value={value} options={assessOptions} onchange={handleAssessChange}> </lightning-combobox> 
+            </div>
+        </lightning-layout>
+       
+        <lightning-layout>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input type="email" label="Email" class="inp" required name="email" value={canEmail} placeholder="type here..."></lightning-input>
+            </div>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input label="Phone" class="inp" required name="phone" value={canPhone} placeholder="type here..."></lightning-input>
+            </div>
+        </lightning-layout>
+        
+        <lightning-layout>
+            <div class="slds-p-around_medium lgc-bg">              
+                <lightning-combobox name="types" label="Qualification" required value={value} options={qualificationOptions} onchange={handleQualiChange}> </lightning-combobox> 
+            </div>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input type="date" label="Date" required value={date} onchange={handleDate} readonly="true"></lightning-input>
+            </div>
+        </lightning-layout>  
+           
+        <lightning-layout style="float: right;">
+            <lightning-button variant="brand" label="Submit" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+        </lightning-layout>    -->
+        
+        <template if:true={showModal}>
+            <div class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                  <header class="slds-modal__header">
+                    <h2 class="slds-modal__title">{assessName}</h2>
+                  </header>
+                  
+                  <div class="slds-modal__content slds-p-around_medium">    
+                    <p>You will be redirected to the assessment page in <b>{remainingTime}</b> seconds.</p> <br>            
+                    Hi <b>{name}</b>, <br>
+                    Based on your domain, you have to complete the assessment on <b>{assessName}</b> which consists of <b>{numQues} questions</b> in <b>{numMins}:00 minutes</b>.
+                  </div>
+                  <footer class="slds-modal__footer">
+                   <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button> 
+                    <button class="slds-button slds-button_brand" onclick={StartTest} disabled={startButtonDisabled}>Start Test</button>                    
+                  </footer>
+              
+                </div>
+              </div>
+          
+              <div class="slds-backdrop slds-backdrop_open"></div>
+           
+          </template>
+        
+    </lightning-card>
+    
+</template>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SQL</fullName>
+    <columns>NAME</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Assesment__c</field>
+        <operation>equals</operation>
+        <value>SQL</value>
+    </filters>
+    <label>SQL</label>
+</ListView>
