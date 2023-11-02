@@ -1,0 +1,17 @@
+<!-- customModal.html -->
+<template>
+    <div class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container" style="width: 35%;">
+            <header class="slds-modal__header">
+                <h2 class="slds-modal__title">{modalTitle}</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium">
+                <p>{modalMessage}</p>
+            </div>
+            <footer class="slds-modal__footer">
+                <lightning-button variant="neutral" label="Close" onclick={closeModal}></lightning-button>
+            </footer>
+        </div>
+    </div>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

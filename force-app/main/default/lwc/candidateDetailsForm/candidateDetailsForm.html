@@ -1,0 +1,39 @@
+<template>
+    
+    <lightning-card title="Candidates Results">
+        
+        <div class="input-container">
+            <lightning-input type="text" onchange={candSearchHandler} placeholder="Search With Topic,Phone,Email...">  >  
+            </lightning-input>
+            <lightning-icon icon-name="utility:search"
+                          alternative-text="Search"
+                          class="search-icon">
+          </lightning-icon>
+          </div>
+          
+        <div class="datatable-container">
+        <template if:true={data}>
+            <lightning-datatable
+            key-field="candidateId"
+            data ={data}
+            columns={columns}
+            class="slds-m-top_medium row-hover" 
+            row-class={rowClass}
+         
+            sorted-direction={sortedDirection}
+            sorted-by={sortedBy}
+            onsort={handleSortdata}
+            hide-checkbox-column="true"
+            onrowaction={handleRowAction}>
+            >
+            
+        </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            {error}
+        </template>
+        </div>
+    </lightning-card>
+
+
+</template>

@@ -1,104 +1,196 @@
 <template>
-    <lightning-card title="Online Assessment with Timer!"> 
-        <template if:true={examStarted}>
-            <lightning-layout>
-                <lightning-layout-item class="inside-card">
-                    <div>Candidate Name: <b>{candName}</b></div>      
-                    <div>Assessment On:  <b>{assessName}</b></div>
-                </lightning-layout-item>
-            <lightning-layout-item  class="slds-text-align_right"  size="9" flexibility="auto" padding="horizontal-small">
-                <div style="font-size: 20px; color: blue;">                    
-                    Remaining Time: {timerMinutes}:{timerSeconds} 
-                </div>
-            </lightning-layout-item>
-        </lightning-layout>
-        </template>
-    </lightning-card>
-    
-    <lightning-card title="Online Assessment with Timer!" class="scrollable-container">
+  <lightning-card title="Online Assessment">
     <template if:true={examStarted}>
-        <div style="font-size: 20px; color: blue;">            
-                        <lightning-layout multiple-rows="true" class="inside-card">
-                        <template for:each={questionWrapper} for:item="eachQuestion">
-                            <lightning-layout-item key={eachQuestion.qNo} size="12" padding="around-small">
-                                {eachQuestion.qNo}) {eachQuestion.question.Name}
-                            </lightning-layout-item>             
-                                <lightning-layout-item key={eachQuestion.question.Id} size="12" padding="around-small">
-                                    <lightning-radio-group name={eachQuestion.question.Id} options={eachQuestion.options}
-                                        value={eachQuestion.selectedAnswer} type="radio"  onchange={handleOptionChange} >                                                
-                                    </lightning-radio-group>                                    
-                                <lightning-button label="Reset" onclick={handleResetClick} data-questionid={eachQuestion.question.Id}></lightning-button>
-                            </lightning-layout-item>                            
-                        </template>
-                    <lightning-layout-item size="12" padding="around-small">
-                    <div class="slds-align_absolute-center">
-                        <lightning-button variant="brand" label="Submit" onclick={onSubmit} ></lightning-button>
-                    </div>
-                    </lightning-layout-item>
-                </lightning-layout>
+      <lightning-layout>
+        <lightning-layout-item class="inside-card-first" size="3">
+          <div>Candidate Name: <b>{candName}</b></div>
+          <div>Topic: <b>{assessName}</b></div>
+          <div>Experience: <b>{exp}</b></div>
+          <div>Duration: <b>{Minutes}</b></div>
+        </lightning-layout-item>
+        <lightning-layout-item
+          class="slds-text-align_right"
+          size="4"
+          flexibility="auto"
+          padding="horizontal-small"
+        >
+          <div style="font-size: 20px; color: rgba(255, 145, 0, 0.93)">
+            Do-Not (Refresh/Hit Back/Switch Tab)
+          </div>
+          <div style="font-size: 20px; color: blue">
+            Remaining Time: {timerMinutes}:{timerSeconds}
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="5">
+          <video autoplay class="videoelement inside-card-third"></video>
+          <template if:false={cap}>
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+            >
+              <lightning-button
+                label="TurnOn Cam"
+                onclick={capture}
+                class="inside-card"
+              ></lightning-button>
+              <span style="margin-top: 10px">To start the Assessment</span>
             </div>
-        </template>
-
-        <template if:true={showModal}>
-            <div class="slds-modal slds-fade-in-open">
-                <div class="slds-modal__container">
-                  <header class="slds-modal__header">
-                    <h2 class="slds-modal__title">Submission Confirmation!</h2>
-                  </header>
-                  <div class="slds-modal__content slds-p-around_medium">                
-                    Hi <b>{candName}</b>, <br>
-                    Are you sure about the submission of the assessment on <b>{assessName}</b>? If <b>Yes</b>, click on <b>Finish </b> 
-                        and If <b>No</b>, click on <b>Cancel</b>.
-                  </div>
-                  <footer class="slds-modal__footer">
-                     <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
-                    <button class="slds-button slds-button_brand" onclick={Finish}>Finish</button>                    
-                  </footer>
-                </div>
-              </div>
-              <div class="slds-backdrop slds-backdrop_open"></div>
-           
+            <!-- <lightning-button label="Capture Stop" onclick={stop}></lightning-button> -->
           </template>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+  </lightning-card>
 
-          <template if:true={showModal1}>
-            <div class="slds-modal slds-fade-in-open">
-                <div class="slds-modal__container">
-                  <header class="slds-modal__header">
-                    <h2 class="slds-modal__title">Time Alert!</h2>
-                  </header>
-                  <div class="slds-modal__content slds-p-around_medium">                
-                    Hi <b>{candName}</b>, <br>
-                    You have only <b>{timerMinutes}:{timerSeconds} Mins:Secs</b> left to complete the assessment.
-                  </div>
-                  <footer class="slds-modal__footer">
-                     <button class="slds-button slds-button_neutral" onclick={closeModal1}>Close</button>
-                    <!-- <button class="slds-button slds-button_brand" onclick={Finish}>Finish</button>   -->
-                  </footer>
-                </div>
-              </div>
-              <div class="slds-backdrop slds-backdrop_open"></div>
-           
+  <lightning-card title="" class="scrollable-container">
+    <template if:true={examStarted}>
+      <div style="font-size: 20px; color: blue">
+        <lightning-layout multiple-rows="true" class="inside-card-body">
+          <template for:each={questionWrapper} for:item="eachQuestion">
+            <lightning-layout-item
+              key={eachQuestion.qNo}
+              size="12"
+              padding="around-small"
+            >
+              {eachQuestion.qNo}) {eachQuestion.question.Question__c}
+            </lightning-layout-item>
+            <lightning-layout-item
+              key={eachQuestion.question.Id}
+              size="12"
+              padding="around-small"
+            >
+              <lightning-radio-group
+                name={eachQuestion.question.Id}
+                options={eachQuestion.options}
+                value={eachQuestion.selectedAnswer}
+                type="radio"
+                onchange={handleOptionChange}
+              >
+              </lightning-radio-group>
+              <a
+                onclick={handleResetClick}
+                data-questionid={eachQuestion.question.Id}
+                >Clear</a
+              >
+            </lightning-layout-item>
           </template>
-
-          <template if:true={showModal2}>
-            <div class="slds-modal slds-fade-in-open">
-                <div class="slds-modal__container">
-                  <header class="slds-modal__header">
-                    <h2 class="slds-modal__title">Submission Successfull!</h2>
-                  </header>
-                  <div class="slds-modal__content slds-p-around_medium">                
-                    Hi <b>{candName}</b>, <br><br>
-                    Your assessment submitted successfully and result is saved. The same, you will be notified with an email.
-                    <br><br>Thank you.
-                  </div>
-                  <footer class="slds-modal__footer">
-                     <button class="slds-button slds-button_neutral" onclick={closeModal2}>Logout</button>
-                    <!-- <button class="slds-button slds-button_brand" onclick={Finish}>Finish</button>   -->
-                  </footer>
-                </div>
+          <lightning-layout-item size="12" padding="around-small">
+            <template if:true={cap}>
+              <div class="slds-align_absolute-center">
+                <lightning-button
+                  variant="brand"
+                  label="Submit"
+                  onclick={onSubmit}
+                  disabled={submitButtonDisabled}
+                ></lightning-button>
               </div>
-              <div class="slds-backdrop slds-backdrop_open"></div>           
-          </template>
+            </template>
+          </lightning-layout-item>
+        </lightning-layout>
+      </div>
+    </template>
 
-    </lightning-card>
+    <template if:true={showModal}>
+      <div class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <h2 class="slds-modal__title">Submission Confirmation!</h2>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium">
+            Hi <b>{candName}</b>, <br />
+            Are you sure about the submission of the assessment?
+          </div>
+          <footer class="slds-modal__footer">
+            <button
+              class="slds-button slds-button_neutral"
+              onclick={closeModal}
+            >
+              No
+            </button>
+            <button class="slds-button slds-button_brand" onclick={Finish}>
+              Yes
+            </button>
+          </footer>
+        </div>
+      </div>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={showModal1}>
+      <div class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <h2 class="slds-modal__title">Time Alert!</h2>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium">
+            Hi <b>{candName}</b>, <br />
+            You have only <b>{timerMinutes}:{timerSeconds} Mins:Secs</b> left to
+            complete the assessment.
+          </div>
+          <footer class="slds-modal__footer">
+            <button
+              class="slds-button slds-button_neutral"
+              onclick={closeModal1}
+            >
+              Close
+            </button>
+            <!-- <button class="slds-button slds-button_brand" onclick={Finish}>Finish</button>   -->
+          </footer>
+        </div>
+      </div>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={showModal2}>
+      <div class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <h2 class="slds-modal__title">Submission Successfull!</h2>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium">
+            Hi <b>{candName}</b>, <br /><br />
+            Your assessment submitted. Hr will contact you after evaluation.
+            <br /><br />Thank you.
+          </div>
+          <footer class="slds-modal__footer">
+            <button
+              class="slds-button slds-button_neutral"
+              onclick={closeModal2}
+            >
+              Ok
+            </button>
+            <!-- <button class="slds-button slds-button_brand" onclick={Finish}>Finish</button>   -->
+          </footer>
+        </div>
+      </div>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={showModal3}>
+      <div class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <h2 class="slds-modal__title">Browser Switched!!</h2>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium">
+            Hi <b>{candName}</b>, <br /><br />
+            This is first warning message about browser swithing. Next time you
+            will get logout automatically!!.
+            <br /><br />Thank you.
+          </div>
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_brand" onclick={closeModal2}>
+              Logout
+            </button>
+            <button
+              class="slds-button slds-button_neutral"
+              onclick={closeModal3}
+            >
+              Close
+            </button>
+          </footer>
+        </div>
+      </div>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+  </lightning-card>
 </template>

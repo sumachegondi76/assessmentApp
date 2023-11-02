@@ -42,6 +42,27 @@ public with sharing class AssessmentController {
             return null;
         }
     }
+    // @AuraEnabled
+    // public static void updateCandidateEndTime(String candidateId) {
+    //     Candidate__c candidate = [SELECT Id, End_Time__c FROM Candidate__c WHERE Id = :candidateId];
+    //     if (candidate != null) {
+    //         DateTime currentTime = DateTime.now();
+    //         TimeZone tz = TimeZone.getTimeZone('Asia/Kolkata'); // Retrieve India Standard Time zone
+    //         Integer timeZoneOffsetMinutes = tz.getOffset(currentTime) / (1000 * 60); // Get time zone offset in minutes
+    //         Time endTime = Time.newInstance(
+    //             currentTime.hour(),
+    //             currentTime.minute(),
+    //             currentTime.second(),
+    //             currentTime.millisecond()
+    //         );
+    //         candidate.End_Time__c = endTime;
+    //         candidate.End_Time__c = candidate.End_Time__c.addMinutes(timeZoneOffsetMinutes);
+    //         update candidate;
+    //     }
+    // }
+    
+
+
 
     private static Integer[] getRandomOrder(Integer size) {
         Integer[] order = new Integer[size];
@@ -69,6 +90,7 @@ public with sharing class AssessmentController {
         @AuraEnabled
         public String selectedAnswer;
     } 
+
 
     public class Options {
         @AuraEnabled

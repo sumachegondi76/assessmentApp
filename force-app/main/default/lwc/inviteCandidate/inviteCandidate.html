@@ -1,0 +1,16 @@
+<template>
+    <lightning-layout>
+      <lightning-layout-item size="auto">
+        <!-- Invited: {count} -->
+      </lightning-layout-item>
+      <lightning-layout-item size="auto" horizontal-align="right">
+        <button
+          class={buttonC}
+          disabled={inviteButtonDisabled}
+          onclick={sendEmail}
+        >
+          Invite
+        </button>
+      </lightning-layout-item>
+    </lightning-layout>
+  </template>

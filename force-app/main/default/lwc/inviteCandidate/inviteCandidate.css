@@ -1,0 +1,43 @@
+.blue-button {
+    background-color: blue;
+    color: white;
+    font-size: 20px;
+    width: 100px;
+    height: 45px;
+    border-radius: 25px;
+  }
+  
+  .green-button {
+    background-color: green;
+    color: white;
+    font-size: 20px;
+    width: 100px;
+    height: 45px;
+    border-radius: 25px;
+  }
+  
+  .orange-button {
+    background-color: rgb(222, 198, 16);
+    color: white;
+    font-size: 20px;
+    width: 100px;
+    height: 45px;
+    border-radius: 25px;
+  }
+  
+  .red-button {
+    background-color: red;
+    color: white;
+    font-size: 20px;
+    width: 100px;
+    height: 45px;
+    border-radius: 25px;
+  }
+  
+  .default-button {
+    color: Red;
+    font-size: 20px;
+    width: 100px;
+    height: 45px;
+    border-radius: 25px;
+  }
